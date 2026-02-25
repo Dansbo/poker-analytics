@@ -55,8 +55,11 @@ def parse_and_import(folder_path, game_type):
                     hand_date = date_match.group(1).replace('/', '-') if date_match else None
                     
                     # Level
-                    level_match = re.search(r'-(Level\d+)', hand_text)
-                    level_info = level_match.group(1) if level_match else "Unknown"
+                    level_match = re.search(r'Level\s?(\d+)', hand_text)
+                    if level_match:    
+                        level_info = f"Level {level_match.group(1)}"
+                    else:
+                        level_info = "Unknown"
                     
                     # Hero's Cards
                     hero_match = re.search(r'Dealt to Hero \[(.*?)\]', hand_text)
